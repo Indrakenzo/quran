@@ -3,146 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Al-Qur'an Platinum</title>
+    <title>Al-Qur'an 3D Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Base Styles */
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; transition: background-color 0.3s, color 0.3s; }
-        .arabic { font-family: 'Amiri', serif; font-size: 2.4rem; line-height: 4.8rem; text-align: right; direction: rtl; }
+        /* Base & Scrollbar */
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; transition: all 0.3s ease; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
         
-        /* Dark Mode Variables */
-        body.dark-mode { background-color: #111827; color: #e5e7eb; }
-        body.dark-mode .bg-white { background-color: #1f2937; border-color: #374151; }
-        body.dark-mode .text-gray-800, body.dark-mode .text-gray-900 { color: #f3f4f6; }
-        body.dark-mode .text-green-800 { color: #86efac; }
-        body.dark-mode .bg-green-50 { background-color: #064e3b; border-color: #065f46; }
-        body.dark-mode .bg-green-100 { background-color: #14532d; color: #86efac; border-color: #14532d; }
-        body.dark-mode .arabic { color: #ffffff; }
-        body.dark-mode .bottom-nav { background-color: #1f2937; border-color: #374151; }
+        /* Typography untuk Orang Tua (Jelas & Kontras) */
+        .arabic { font-family: 'Amiri', serif; font-size: 2.8rem; line-height: 5.5rem; text-align: right; direction: rtl; color: #111827; text-shadow: 0px 1px 1px rgba(0,0,0,0.1); }
+        .latin-text { color: #059669; font-size: 1.15rem; line-height: 1.8rem; font-weight: 600; font-style: italic; letter-spacing: 0.5px; }
+        .terjemahan-text { color: #4b5563; font-size: 1.05rem; line-height: 1.6rem; }
         
-        /* Components */
-        .audio-player { position: fixed; bottom: 70px; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); padding: 10px 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); display: none; z-index: 80; border-top: 3px solid #16a34a; align-items: center; gap: 10px; }
-        body.dark-mode .audio-player { background: rgba(31, 41, 55, 0.95); border-color: #059669; }
+        /* 3D & Glassmorphism Effects */
+        .glass-header { background: rgba(6, 78, 59, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.2); box-shadow: 0 10px 30px rgba(6, 78, 59, 0.3); }
+        .card-3d { background: #ffffff; border-radius: 20px; box-shadow: 6px 6px 15px rgba(0,0,0,0.05), -6px -6px 15px rgba(255,255,255,0.8); transition: transform 0.2s ease, box-shadow 0.2s ease; border: 1px solid rgba(255,255,255,0.5); }
+        .card-3d:active { transform: translateY(4px) scale(0.98); box-shadow: inset 4px 4px 10px rgba(0,0,0,0.05), inset -4px -4px 10px rgba(255,255,255,0.8); }
+        
+        .btn-3d { background: linear-gradient(145deg, #10b981, #059669); color: white; box-shadow: 4px 4px 10px rgba(5, 150, 105, 0.3), -4px -4px 10px rgba(255,255,255,0.5); border: none; transition: all 0.2s; }
+        .btn-3d:active { transform: translateY(3px); box-shadow: inset 4px 4px 10px rgba(4, 120, 87, 0.5); }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 12px 0; z-index: 90; padding-bottom: 25px; box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.1); }
-        .nav-item { text-align: center; color: #9ca3af; font-size: 0.75rem; flex: 1; transition: 0.3s; }
-        .nav-item.active { color: #16a34a; font-weight: bold; transform: scale(1.1); }
+        /* Dark Mode 3D Adaptation */
+        body.dark-mode { background-color: #0f172a; color: #f8fafc; }
+        body.dark-mode .card-3d { background: #1e293b; box-shadow: 6px 6px 15px rgba(0,0,0,0.4), -6px -6px 15px rgba(255,255,255,0.05); border-color: #334155; }
+        body.dark-mode .card-3d:active { box-shadow: inset 4px 4px 10px rgba(0,0,0,0.6); }
+        body.dark-mode .arabic { color: #f8fafc; }
+        body.dark-mode .latin-text { color: #34d399; }
+        body.dark-mode .terjemahan-text { color: #cbd5e1; }
+        body.dark-mode .glass-header { background: rgba(2, 6, 23, 0.85); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        body.dark-mode .bottom-nav { background-color: #1e293b; border-color: #334155; }
         
-        /* Skeleton Animation */
-        .skeleton { background: #e5e7eb; height: 100%; width: 100%; border-radius: 8px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        /* Audio Player & Navigation */
+        .audio-player { position: fixed; bottom: 85px; left: 10px; right: 10px; border-radius: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); display: none; z-index: 80; border: 2px solid #10b981; transform: translateZ(0); }
+        body.dark-mode .audio-player { background: rgba(30,41,59,0.95); border-color: #059669; }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-top-left-radius: 25px; border-top-right-radius: 25px; display: flex; justify-content: space-around; padding: 15px 0 25px 0; z-index: 90; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); }
+        .nav-item { text-align: center; color: #94a3b8; font-size: 0.8rem; flex: 1; transition: 0.3s; font-weight: 600; }
+        .nav-item.active { color: #10b981; transform: translateY(-5px); text-shadow: 0 4px 10px rgba(16,185,129,0.3); }
+        .nav-icon { font-size: 1.8rem; display: block; margin-bottom: 4px; }
+        
+        /* Loader */
+        .loader-3d { width: 50px; height: 50px; border: 5px solid #e2e8f0; border-top-color: #10b981; border-radius: 50%; animation: spin 1s infinite cubic-bezier(0.68, -0.55, 0.265, 1.55); margin: 40px auto; box-shadow: 0 5px 15px rgba(16,185,129,0.2); }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-50 pb-32 select-none">
+<body class="pb-36">
 
-    <header class="bg-gradient-to-r from-green-800 to-green-600 text-white p-5 pb-8 shadow-lg rounded-b-3xl sticky top-0 z-40">
-        <div class="flex justify-between items-center mb-4">
-            <div>
-                <h1 class="text-xl font-bold">Al-Qur'an Keluarga</h1>
-                <p class="text-green-100 text-xs">Versi Platinum</p>
+    <header class="glass-header text-white p-5 pb-8 rounded-b-[40px] sticky top-0 z-40">
+        <div class="flex justify-between items-center mb-5">
+            <div class="transform hover:scale-105 transition">
+                <h1 class="text-2xl font-black tracking-tight drop-shadow-md">Al-Qur'an <span class="text-emerald-400">Pro</span></h1>
+                <p class="text-emerald-100 text-sm font-medium">Bimbingan Mudah Orang Tua</p>
             </div>
-            <button onclick="toggleDarkMode()" class="bg-white/20 p-2 rounded-full backdrop-blur-sm active:scale-90 transition">
-                🌙 / ☀️
+            <button onclick="toggleDarkMode()" class="bg-white/20 p-3 rounded-2xl backdrop-blur-md active:scale-90 transition shadow-lg border border-white/30">
+                <span id="theme-icon" class="text-xl">🌙</span>
             </button>
+        </div>
+
+        <div class="bg-black/30 p-3 rounded-2xl mb-4 flex items-center gap-3 shadow-inner border border-white/10 backdrop-blur-sm">
+            <div class="bg-emerald-500 p-2 rounded-xl shadow-lg"><span class="text-xl">🎙️</span></div>
+            <select id="qari-select" onchange="changeQari()" class="w-full bg-transparent text-white font-bold text-md outline-none border-none cursor-pointer appearance-none">
+                <option class="text-black" value="05">1. Misyari Rasyid (Merdu/Jelas)</option>
+                <option class="text-black" value="04">2. As-Sudais (Masjidil Haram)</option>
+                <option class="text-black" value="01">3. Abdullah Al-Juhany</option>
+                <option class="text-black" value="02">4. Abdul Muhdir</option>
+                <option class="text-black" value="03">5. Abdurrahman As-Sudais</option>
+            </select>
         </div>
 
         <div class="relative">
-            <input type="text" id="search-input" onkeyup="filterSurah()" placeholder="Cari Surah (cth: Yasin)..." class="w-full p-3 pl-10 rounded-xl text-gray-800 font-bold focus:outline-none shadow-inner border-2 border-transparent focus:border-green-300 transition">
-            <span class="absolute left-3 top-3 text-gray-400">🔍</span>
+            <input type="text" id="search-input" onkeyup="filterSurah()" placeholder="🔍 Cari Surah (Contoh: Yasin)..." class="w-full p-4 pl-6 rounded-2xl text-gray-800 font-bold focus:outline-none shadow-[inset_0_4px_8px_rgba(0,0,0,0.1)] border-2 border-transparent focus:border-emerald-400 transition text-lg">
         </div>
     </header>
 
-    <main class="max-w-2xl mx-auto p-4 relative z-30 -mt-4">
+    <main class="max-w-2xl mx-auto p-4 relative z-30 -mt-6">
 
-        <div id="last-read-banner" onclick="openLastRead()" class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-r-xl shadow-md mb-4 cursor-pointer flex justify-between items-center animate-bounce-slow">
+        <div id="last-read-banner" onclick="openLastRead()" class="hidden card-3d bg-gradient-to-r from-amber-100 to-yellow-50 border-l-8 border-amber-500 p-4 mb-6 cursor-pointer flex justify-between items-center">
             <div>
-                <p class="text-xs font-bold uppercase tracking-wider text-yellow-600">Terakhir Dibaca:</p>
-                <h3 id="last-read-name" class="font-bold text-lg">Surah ...</h3>
+                <p class="text-xs font-black uppercase tracking-widest text-amber-600 mb-1">🔖 Lanjut Membaca:</p>
+                <h3 id="last-read-name" class="font-black text-xl text-gray-800">Surah ...</h3>
             </div>
-            <span class="text-2xl">👉</span>
+            <div class="bg-amber-200 p-3 rounded-full shadow-inner text-xl">📖</div>
         </div>
 
         <section id="section-quran" class="tab-content">
-            <div id="surah-list" class="grid gap-3">
-                <div class="h-20 bg-gray-200 rounded-xl skeleton"></div>
-                <div class="h-20 bg-gray-200 rounded-xl skeleton"></div>
-                <div class="h-20 bg-gray-200 rounded-xl skeleton"></div>
-            </div>
+            <div id="loading-surah" class="loader-3d hidden"></div>
+            <div id="surah-list" class="grid gap-5 pt-2">
+                </div>
         </section>
 
-        <section id="section-ruqyah" class="tab-content hidden">
-            <div class="bg-green-50 border-l-4 border-green-600 p-4 mb-5 rounded-r-xl shadow-sm">
-                <h3 class="font-bold text-green-900 text-lg">🛡️ Ayat Perlindungan</h3>
-                <p class="text-sm text-green-700">Untuk ketenangan rumah & hati.</p>
+        <section id="section-ruqyah" class="tab-content hidden pt-2">
+            <div class="card-3d bg-emerald-50 border-l-8 border-emerald-500 p-5 mb-6">
+                <h3 class="font-black text-emerald-900 text-xl">🛡️ Ayat Perlindungan Rumah</h3>
+                <p class="text-md text-emerald-700 font-medium mt-1">Dengarkan rutin untuk ketenangan keluarga.</p>
             </div>
-            <div id="ruqyah-container" class="grid gap-4">
-                 </div>
+            <div id="ruqyah-container" class="grid gap-5"></div>
         </section>
 
-        <section id="section-read" class="hidden pb-20">
-            <button onclick="switchTab('quran')" class="mb-4 bg-white border border-green-600 text-green-700 font-bold py-3 px-5 rounded-xl w-full flex items-center justify-center gap-2 hover:bg-green-50 shadow-sm sticky top-24 z-30">
-                ⬅️ Kembali
+        <section id="section-read" class="hidden pb-20 pt-2">
+            <button onclick="switchTab('quran')" class="mb-6 card-3d text-emerald-600 font-black py-4 px-5 rounded-2xl w-full flex items-center justify-center gap-3 text-lg border border-emerald-100">
+                <span class="text-2xl">🔙</span> Kembali ke Daftar
             </button>
-            
-            <div id="basmalah-container" class="text-center mb-6 hidden">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" class="w-1/2 mx-auto opacity-80 filter-green" alt="Bismillah">
+
+            <div class="card-3d p-6 mb-8 text-center relative overflow-hidden">
+                <div class="absolute -right-10 -top-10 opacity-10 text-9xl arabic">﷽</div>
+                <h2 id="surah-title" class="text-4xl font-black text-emerald-900 mb-2 drop-shadow-sm"></h2>
+                <p id="surah-info" class="text-emerald-600 font-bold text-lg mb-6"></p>
+                
+                <button onclick="playFullSurah()" class="btn-3d w-full py-4 rounded-2xl font-black text-xl flex justify-center items-center gap-3">
+                    <span class="bg-white/20 p-2 rounded-full">▶️</span> Putar Full Surah
+                </button>
+                <p class="text-sm text-emerald-600 mt-4 font-bold" id="qari-label-full">🎙️ Suara: ...</p>
             </div>
 
-            <div class="bg-green-50 p-5 rounded-2xl border border-green-200 mb-6 text-center">
-                <h2 id="surah-title" class="text-3xl font-bold text-green-900 font-serif"></h2>
-                <p id="surah-info" class="text-green-700 text-sm mb-4"></p>
-                <button onclick="playFullSurah()" class="bg-green-700 text-white w-full py-3 rounded-xl font-bold shadow-lg flex justify-center items-center gap-2 active:scale-95 transition">
-                    ▶️ Putar Satu Surah Full
-                </button>
-            </div>
-            <div id="ayat-content" class="grid gap-6"></div>
+            <div id="ayat-content" class="grid gap-8"></div>
         </section>
 
     </main>
 
-    <div id="global-player" class="audio-player">
-        <div class="flex-1 overflow-hidden">
-            <p id="audio-title" class="font-bold text-green-900 text-sm truncate">Memutar...</p>
-            <p class="text-xs text-green-600 truncate">Misyari Rasyid Al-Afasy</p>
+    <div id="global-player" class="audio-player flex-col gap-3">
+        <div class="flex items-center justify-between w-full">
+            <div class="flex-1 overflow-hidden">
+                <p id="audio-title" class="font-black text-emerald-900 text-md truncate">Memutar...</p>
+                <p class="text-xs text-emerald-600 font-bold truncate" id="player-sub">Imam</p>
+            </div>
+            <button onclick="closePlayer()" class="bg-red-100 text-red-600 p-2 rounded-xl font-black shadow-inner">TUTUP ✕</button>
         </div>
-        <audio id="audio-element" controls class="h-8 w-32"></audio>
-        <button onclick="closePlayer()" class="text-red-500 font-bold px-3">✕</button>
+        <audio id="audio-element" controls class="w-full h-12 rounded-xl shadow-inner bg-gray-50"></audio>
     </div>
 
     <nav class="bottom-nav">
         <div onclick="switchTab('quran')" id="nav-quran" class="nav-item active cursor-pointer">
-            <span class="nav-icon">📖</span> Al-Qur'an
+            <span class="nav-icon">📖</span> <span class="tracking-wide">Al-Qur'an</span>
         </div>
         <div onclick="switchTab('ruqyah')" id="nav-ruqyah" class="nav-item cursor-pointer">
-            <span class="nav-icon">🕌</span> Ruqyah
+            <span class="nav-icon">🕌</span> <span class="tracking-wide">Ruqyah</span>
         </div>
     </nav>
 
     <script>
         // --- 1. CONFIG & STATE ---
-        let allSurahData = []; // Untuk Search Cache
-        let currentFullAudio = "";
+        let allSurahData = []; 
+        let currentFullAudioMap = {}; 
         
+        // Pilihan Qari dari EQuran API v2
+        let currentQari = localStorage.getItem('qariID') || '05'; 
+        const qariNames = {
+            '01': 'Abdullah Al-Juhany',
+            '02': 'Abdul Muhdir',
+            '03': 'Abdurrahman As-Sudais',
+            '04': 'Ibrahim Al-Dossari',
+            '05': 'Misyari Rasyid'
+        };
+
+        document.getElementById('qari-select').value = currentQari;
+
+        function changeQari() {
+            currentQari = document.getElementById('qari-select').value;
+            localStorage.setItem('qariID', currentQari);
+            
+            const name = qariNames[currentQari];
+            if(document.getElementById('qari-label-full')) {
+                document.getElementById('qari-label-full').innerText = "🎙️ Suara: " + name;
+            }
+            if(!document.getElementById('section-ruqyah').classList.contains('hidden')) {
+                loadRuqyah(); 
+            }
+            alert(`✅ Suara berhasil diubah ke: ${name}\nSilakan putar ulang audio.`);
+        }
+
         // --- 2. DARK MODE LOGIC ---
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             localStorage.setItem('darkMode', isDark);
+            document.getElementById('theme-icon').innerText = isDark ? '☀️' : '🌙';
         }
-        // Cek settingan lama user
-        if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+        if(localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-icon').innerText = '☀️';
+        }
 
-        // --- 3. LAST READ LOGIC ---
+        // --- 3. LAST READ ---
         function checkLastRead() {
             const lastId = localStorage.getItem('lastReadId');
             const lastName = localStorage.getItem('lastReadName');
             const banner = document.getElementById('last-read-banner');
-            
             if(lastId && lastName) {
-                banner.classList.remove('hidden');
-                banner.classList.add('flex');
-                document.getElementById('last-read-name').innerText = lastName;
+                banner.classList.remove('hidden'); 
+                document.getElementById('last-read-name').innerText = "Surah " + lastName;
             }
         }
         function openLastRead() {
@@ -152,13 +204,15 @@
 
         // --- 4. LOAD SURAH LIST ---
         async function getSurahList() {
+            document.getElementById('loading-surah').classList.remove('hidden');
             try {
                 const res = await fetch('https://equran.id/api/v2/surat');
                 const json = await res.json();
                 allSurahData = json.data;
                 renderSurahList(allSurahData);
                 checkLastRead();
-            } catch (e) { document.getElementById('surah-list').innerHTML = 'Gagal memuat. Cek koneksi.'; }
+            } catch (e) { document.getElementById('surah-list').innerHTML = '<div class="card-3d p-5 text-center text-red-500 font-bold">Gagal memuat data. Periksa koneksi internet.</div>'; }
+            document.getElementById('loading-surah').classList.add('hidden');
         }
 
         function renderSurahList(data) {
@@ -166,160 +220,183 @@
             container.innerHTML = '';
             data.forEach(s => {
                 container.innerHTML += `
-                    <div onclick="getDetailSurah(${s.nomor})" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer active:bg-green-50 transition transform active:scale-95">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-green-100 text-green-800 font-bold w-10 h-10 flex items-center justify-center rounded-full text-sm border border-green-200">${s.nomor}</div>
+                    <div onclick="getDetailSurah(${s.nomor})" class="card-3d p-5 flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-5">
+                            <div class="bg-gradient-to-br from-emerald-400 to-emerald-600 text-white font-black w-12 h-12 flex items-center justify-center rounded-2xl text-lg shadow-lg transform rotate-3">${s.nomor}</div>
                             <div>
-                                <h3 class="font-bold text-gray-800 text-lg">${s.namaLatin}</h3>
-                                <p class="text-xs text-gray-500">${s.arti} • ${s.jumlahAyat} Ayat</p>
+                                <h3 class="font-black text-gray-800 text-xl">${s.namaLatin}</h3>
+                                <p class="text-sm text-gray-500 font-medium mt-1">${s.arti} • ${s.jumlahAyat} Ayat</p>
                             </div>
                         </div>
-                        <span class="arabic text-2xl text-green-700">${s.nama}</span>
+                        <span class="arabic text-emerald-600 text-3xl">${s.nama}</span>
                     </div>
                 `;
             });
         }
 
-        // --- 5. SEARCH FUNCTION ---
         function filterSurah() {
             const query = document.getElementById('search-input').value.toLowerCase();
-            const filtered = allSurahData.filter(s => 
-                s.namaLatin.toLowerCase().includes(query) || 
-                s.arti.toLowerCase().includes(query)
-            );
+            const filtered = allSurahData.filter(s => s.namaLatin.toLowerCase().includes(query) || s.arti.toLowerCase().includes(query));
             renderSurahList(filtered);
         }
 
-        // --- 6. DETAIL SURAH (With Tafsir Toggle) ---
+        // --- 5. DETAIL SURAH ---
         async function getDetailSurah(id) {
-            // UI Setup
             document.getElementById('section-quran').classList.add('hidden');
             document.getElementById('section-ruqyah').classList.add('hidden');
             document.getElementById('section-read').classList.remove('hidden');
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             
             const content = document.getElementById('ayat-content');
-            content.innerHTML = '<div class="text-center mt-10"><div class="animate-spin rounded-full h-10 w-10 border-b-2 border-green-700 mx-auto"></div><p class="mt-2 text-gray-500">Membuka Kitab...</p></div>';
+            content.innerHTML = '<div class="loader-3d"></div>';
 
             try {
                 const res = await fetch(`https://equran.id/api/v2/surat/${id}`);
                 const json = await res.json();
                 const data = json.data;
 
-                // Set Info
                 document.getElementById('surah-title').innerText = data.namaLatin;
                 document.getElementById('surah-info').innerText = `${data.arti} • ${data.jumlahAyat} Ayat`;
-                currentFullAudio = data.audioFull['05'];
+                document.getElementById('qari-label-full').innerText = "🎙️ Suara: " + qariNames[currentQari];
+                currentFullAudioMap = data.audioFull; 
                 
-                // Show Basmalah (Kecuali At-Tawbah / Surah 9)
-                const basmalah = document.getElementById('basmalah-container');
-                if(id == 9) basmalah.classList.add('hidden');
-                else basmalah.classList.remove('hidden');
-
-                // Simpan Last Read
                 localStorage.setItem('lastReadId', id);
                 localStorage.setItem('lastReadName', data.namaLatin);
+                checkLastRead();
 
-                // Render Ayat
                 content.innerHTML = '';
                 data.ayat.forEach(a => {
                     content.innerHTML += `
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border-b-2 border-gray-100 relative group">
-                            <div class="flex justify-between items-start">
-                                <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">Ayat ${a.nomorAyat}</span>
+                        <div class="card-3d p-6 relative">
+                            <div class="absolute -top-4 -left-2 bg-gradient-to-r from-emerald-600 to-emerald-400 text-white text-md font-black px-4 py-2 rounded-xl shadow-lg border-2 border-white transform -rotate-2">
+                                Ayat ${a.nomorAyat}
                             </div>
-
-                            <p class="arabic text-gray-900 mt-6 mb-4 leading-loose">${a.teksArab}</p>
-                            <p class="text-green-700 font-medium italic text-lg mb-2 font-serif">"${a.teksLatin}"</p>
-                            <p class="text-gray-600 text-sm leading-relaxed">${a.teksIndonesia}</p>
                             
-                            <div class="flex gap-2 mt-4">
-                                <button onclick="playAudio('${a.audio['05']}', 'Ayat ${a.nomorAyat}')" class="flex-1 py-2 bg-gray-50 border border-gray-200 rounded-lg text-green-700 font-bold text-sm flex items-center justify-center gap-2 active:bg-green-100">
-                                    🔊 Dengar
+                            <p class="arabic mt-10 mb-6">${a.teksArab}</p>
+                            
+                            <p class="latin-text mb-4">"${a.teksLatin}"</p>
+                            
+                            <p class="terjemahan-text border-t-2 border-gray-100 pt-4 pb-2">${a.teksIndonesia}</p>
+                            
+                            <div class="flex gap-3 mt-4">
+                                <button onclick="playAyatAudio('${a.audio['01']}', '${a.audio['02']}', '${a.audio['03']}', '${a.audio['04']}', '${a.audio['05']}', 'Surah ${data.namaLatin} - Ayat ${a.nomorAyat}')" 
+                                    class="flex-1 py-3 bg-emerald-50 border-2 border-emerald-200 rounded-xl text-emerald-700 font-black text-md flex items-center justify-center gap-2 active:bg-emerald-200 transition">
+                                    <span class="text-xl">🔊</span> Putar Ayat
                                 </button>
-                                <button onclick="toggleTafsir('tafsir-${a.nomorAyat}')" class="px-4 py-2 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700 font-bold text-sm active:bg-yellow-100">
-                                    📖 Info
+                                <button onclick="toggleTafsir('tafsir-${a.nomorAyat}')" class="px-5 py-3 bg-amber-50 border-2 border-amber-200 rounded-xl text-amber-700 font-black text-md active:bg-amber-200 transition">
+                                    📖 Tafsir
                                 </button>
                             </div>
 
-                            <div id="tafsir-${a.nomorAyat}" class="hidden mt-3 bg-gray-50 p-3 rounded-lg text-xs text-gray-600 border border-gray-200">
-                                <strong>Tafsir Ringkas:</strong><br>
-                                Penjelasan ayat ini menekankan pada keimanan dan petunjuk bagi orang yang bertakwa. (Fitur tafsir lengkap akan hadir di update selanjutnya).
+                            <div id="tafsir-${a.nomorAyat}" class="hidden mt-4 bg-gray-50 p-4 rounded-xl text-sm text-gray-700 border-2 border-gray-200 font-medium leading-relaxed">
+                                <span class="font-bold text-amber-600">Catatan:</span> Integrasi teks tafsir utuh akan dimuat di versi mendatang. Mohon baca arti teks di atas untuk pemahaman dasar.
                             </div>
                         </div>
                     `;
                 });
-            } catch (e) { content.innerHTML = 'Gagal memuat.'; }
+            } catch (e) { content.innerHTML = '<div class="card-3d p-5 text-center text-red-500 font-bold">Gagal memuat ayat.</div>'; }
         }
 
-        function toggleTafsir(id) {
+        function toggleTafsir(id) { 
             const el = document.getElementById(id);
             el.classList.toggle('hidden');
+            if(!el.classList.contains('hidden')) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
-        // --- 7. RUQYAH STATIC DATA ---
+        // --- 6. RUQYAH ---
         function loadRuqyah() {
             const container = document.getElementById('ruqyah-container');
+            // Mapping ID Qari ke format path EQuran
+            const qariPaths = {
+                '01': 'Abdullah-Al-Juhany',
+                '02': 'Abdul-Muhdir',
+                '03': 'Abdurrahman-as-Sudais',
+                '04': 'Ibrahim-Al-Dossari',
+                '05': 'Misyari-Rasyid-Al-Afasy'
+            };
+            const path = qariPaths[currentQari] || 'Misyari-Rasyid-Al-Afasy';
+
             const list = [
-                { title: "Ayat Kursi", audio: "002255", desc: "Pelindung Utama", arab: "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱlْقَيُّومُ" },
+                { title: "Ayat Kursi", audio: "002255", desc: "Benteng Utama Rumah", arab: "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱlْقَيُّومُ" },
                 { title: "Al-Ikhlas (3x)", audio: "112001", desc: "Pemurnian Tauhid", arab: "قُلْ هُوَ ٱللَّهُ أَحَدٌ" },
-                { title: "Al-Falaq (3x)", audio: "113001", desc: "Menolak Kejahatan", arab: "قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ" },
-                { title: "An-Nas (3x)", audio: "114001", desc: "Menolak Gangguan", arab: "قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ" },
-                { title: "Ayat 1000 Dinar", audio: "065002", desc: "Pintu Rezeki", arab: "وَمَن يَتَّقِ ٱللَّهَ يَجْعَل لَّهُۥ مَخْرَجًا" }
+                { title: "Al-Falaq (3x)", audio: "113001", desc: "Menolak Sihir/Kejahatan", arab: "قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ" },
+                { title: "An-Nas (3x)", audio: "114001", desc: "Menolak Bisikan Setan", arab: "قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ" },
+                { title: "Ayat 1000 Dinar", audio: "065002", desc: "Pelancar Rezeki", arab: "وَمَن يَتَّقِ ٱللَّهَ يَجْعَل لَّهُۥ مَخْرَجًا" }
             ];
             
             container.innerHTML = '';
             list.forEach(item => {
+                let url = `https://equran.nos.wjv-1.neo.id/audio-partial/${path}/${item.audio}.mp3`;
                 container.innerHTML += `
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 flex flex-col gap-3">
-                        <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <div class="card-3d p-6 flex flex-col gap-4">
+                        <div class="flex justify-between items-center border-b-2 border-gray-100 pb-3">
                             <div>
-                                <h4 class="font-bold text-green-900">${item.title}</h4>
-                                <p class="text-xs text-gray-500">${item.desc}</p>
+                                <h4 class="font-black text-gray-800 text-lg">${item.title}</h4>
+                                <p class="text-sm text-emerald-600 font-bold">${item.desc}</p>
                             </div>
-                            <button onclick="playAudio('https://equran.nos.wjv-1.neo.id/audio-partial/Misyari-Rasyid-Al-Afasy/${item.audio}.mp3', '${item.title}')" class="bg-green-100 text-green-800 p-2 rounded-full text-xs font-bold">▶️</button>
+                            <button onclick="playGlobalAudio('${url}', '${item.title}')" class="bg-gradient-to-r from-emerald-400 to-emerald-600 text-white p-3 rounded-xl shadow-lg active:scale-90 transition">
+                                <span class="text-xl">▶️</span>
+                            </button>
                         </div>
-                        <p class="arabic text-xl text-gray-800 truncate">${item.arab}...</p>
+                        <p class="arabic text-2xl text-gray-800 leading-normal">${item.arab}...</p>
                     </div>
                 `;
             });
         }
 
-        // --- PLAYER & NAV UTILS ---
+        // --- 7. AUDIO PLAYER ---
         const player = document.getElementById('global-player');
         const audioEl = document.getElementById('audio-element');
 
-        function playAudio(url, title) {
+        function playGlobalAudio(url, title) {
             player.style.display = "flex";
             document.getElementById('audio-title').innerText = title;
+            document.getElementById('player-sub').innerText = qariNames[currentQari];
             audioEl.src = url;
             audioEl.play();
         }
-        function playFullSurah() {
-            if(currentFullAudio) playAudio(currentFullAudio, "Full Surah");
+
+        function playAyatAudio(a01, a02, a03, a04, a05, title) {
+            let url = a05; 
+            if(currentQari === '01') url = a01;
+            if(currentQari === '02') url = a02;
+            if(currentQari === '03') url = a03;
+            if(currentQari === '04') url = a04;
+            playGlobalAudio(url, title);
         }
+
+        function playFullSurah() {
+            let url = currentFullAudioMap[currentQari];
+            if(url) playGlobalAudio(url, "Full Surah");
+            else alert("Audio Full belum tersedia untuk Qari ini.");
+        }
+
         function closePlayer() { player.style.display = "none"; audioEl.pause(); }
 
+        // --- 8. NAVIGASI TABS ---
         function switchTab(tab) {
             const q = document.getElementById('section-quran');
             const r = document.getElementById('section-ruqyah');
             const read = document.getElementById('section-read');
-            
-            read.classList.add('hidden'); // Tutup mode baca
+            read.classList.add('hidden'); 
 
             if(tab === 'quran') {
                 q.classList.remove('hidden'); r.classList.add('hidden');
                 document.getElementById('nav-quran').classList.add('active');
                 document.getElementById('nav-ruqyah').classList.remove('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
                 q.classList.add('hidden'); r.classList.remove('hidden');
                 document.getElementById('nav-ruqyah').classList.add('active');
                 document.getElementById('nav-quran').classList.remove('active');
                 loadRuqyah();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        // INIT
+        // INIT KETIKA WEB DIBUKA
         getSurahList();
     </script>
 </body>
