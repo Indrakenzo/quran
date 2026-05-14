@@ -26,7 +26,9 @@
         .btn-3d { background: linear-gradient(145deg, #10b981, #059669); color: white; box-shadow: 4px 4px 10px rgba(5, 150, 105, 0.3), -4px -4px 10px rgba(255,255,255,0.5); border: none; transition: all 0.2s; }
         .btn-3d:active { transform: translateY(3px); box-shadow: inset 4px 4px 10px rgba(4, 120, 87, 0.5); }
 
-        /* Dark Mode 3D Adaptation */
+        /* ==========================================
+           DARK MODE 3D ADAPTATION (BUG FIXED)
+           ========================================== */
         body.dark-mode { background-color: #0f172a; color: #f8fafc; }
         body.dark-mode .card-3d { background: #1e293b; box-shadow: 6px 6px 15px rgba(0,0,0,0.4), -6px -6px 15px rgba(255,255,255,0.05); border-color: #334155; }
         body.dark-mode .card-3d:active { box-shadow: inset 4px 4px 10px rgba(0,0,0,0.6); }
@@ -35,6 +37,28 @@
         body.dark-mode .terjemahan-text { color: #cbd5e1; }
         body.dark-mode .glass-header { background: rgba(2, 6, 23, 0.85); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         body.dark-mode .bottom-nav { background-color: #1e293b; border-color: #334155; }
+        
+        /* Overrides Tailwind Colors in Dark Mode agar Kentara */
+        body.dark-mode .text-gray-800, 
+        body.dark-mode .text-gray-900,
+        body.dark-mode .text-emerald-900 { color: #f8fafc !important; }
+        
+        body.dark-mode .text-gray-500, 
+        body.dark-mode .text-gray-700,
+        body.dark-mode .text-emerald-700,
+        body.dark-mode .text-emerald-600 { color: #94a3b8 !important; }
+        
+        body.dark-mode .bg-emerald-50, 
+        body.dark-mode .bg-amber-50,
+        body.dark-mode .bg-gray-50 { background-color: #0f172a !important; border-color: #334155 !important; }
+        
+        body.dark-mode .text-amber-700,
+        body.dark-mode .text-amber-600 { color: #fbbf24 !important; }
+        
+        body.dark-mode #last-read-banner { background: #1e293b !important; border-color: #fbbf24 !important; }
+        body.dark-mode .bg-amber-200 { background-color: #334155 !important; }
+        
+        body.dark-mode input { background-color: #1e293b !important; color: #f8fafc !important; border-color: #334155 !important; }
         
         /* Audio Player & Navigation */
         .audio-player { position: fixed; bottom: 85px; left: 10px; right: 10px; border-radius: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); display: none; z-index: 80; border: 2px solid #10b981; transform: translateZ(0); }
@@ -91,8 +115,7 @@
 
         <section id="section-quran" class="tab-content">
             <div id="loading-surah" class="loader-3d hidden"></div>
-            <div id="surah-list" class="grid gap-5 pt-2">
-                </div>
+            <div id="surah-list" class="grid gap-5 pt-2"></div>
         </section>
 
         <section id="section-ruqyah" class="tab-content hidden pt-2">
@@ -149,7 +172,6 @@
         let allSurahData = []; 
         let currentFullAudioMap = {}; 
         
-        // Pilihan Qari dari EQuran API v2
         let currentQari = localStorage.getItem('qariID') || '05'; 
         const qariNames = {
             '01': 'Abdullah Al-Juhany',
@@ -273,9 +295,7 @@
                             </div>
                             
                             <p class="arabic mt-10 mb-6">${a.teksArab}</p>
-                            
                             <p class="latin-text mb-4">"${a.teksLatin}"</p>
-                            
                             <p class="terjemahan-text border-t-2 border-gray-100 pt-4 pb-2">${a.teksIndonesia}</p>
                             
                             <div class="flex gap-3 mt-4">
@@ -308,7 +328,6 @@
         // --- 6. RUQYAH ---
         function loadRuqyah() {
             const container = document.getElementById('ruqyah-container');
-            // Mapping ID Qari ke format path EQuran
             const qariPaths = {
                 '01': 'Abdullah-Al-Juhany',
                 '02': 'Abdul-Muhdir',
