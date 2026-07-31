@@ -8,13 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         /* Base & Scrollbar */
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; transition: all 0.3s ease; }
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; transition: all 0.3s ease; display: flex; flex-direction: column; min-height: 100vh; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
         
+        main { flex: 1; }
+        
         /* Typography untuk Orang Tua (Jelas & Kontras) */
         .arabic { font-family: 'Amiri', serif; font-size: 2.8rem; line-height: 5.5rem; text-align: right; direction: rtl; color: #111827; text-shadow: 0px 1px 1px rgba(0,0,0,0.1); }
+        .arabic-footer { font-family: 'Amiri', serif; font-size: 1.8rem; line-height: 3.5rem; text-align: center; color: #064e3b; }
         .latin-text { color: #059669; font-size: 1.15rem; line-height: 1.8rem; font-weight: 600; font-style: italic; letter-spacing: 0.5px; }
         .terjemahan-text { color: #4b5563; font-size: 1.05rem; line-height: 1.6rem; }
         
@@ -33,6 +36,7 @@
         body.dark-mode .card-3d { background: #1e293b; box-shadow: 6px 6px 15px rgba(0,0,0,0.4), -6px -6px 15px rgba(255,255,255,0.05); border-color: #334155; }
         body.dark-mode .card-3d:active { box-shadow: inset 4px 4px 10px rgba(0,0,0,0.6); }
         body.dark-mode .arabic { color: #f8fafc; }
+        body.dark-mode .arabic-footer { color: #34d399; }
         body.dark-mode .latin-text { color: #34d399; }
         body.dark-mode .terjemahan-text { color: #cbd5e1; }
         body.dark-mode .glass-header { background: rgba(2, 6, 23, 0.85); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -50,7 +54,8 @@
         
         body.dark-mode .bg-emerald-50, 
         body.dark-mode .bg-amber-50,
-        body.dark-mode .bg-gray-50 { background-color: #0f172a !important; border-color: #334155 !important; }
+        body.dark-mode .bg-gray-50,
+        body.dark-mode footer.bg-emerald-50 { background-color: #0f172a !important; border-color: #334155 !important; }
         
         body.dark-mode .text-amber-700,
         body.dark-mode .text-amber-600 { color: #fbbf24 !important; }
@@ -59,13 +64,14 @@
         body.dark-mode .bg-amber-200 { background-color: #334155 !important; }
         
         body.dark-mode input { background-color: #1e293b !important; color: #f8fafc !important; border-color: #334155 !important; }
+        body.dark-mode hr { border-color: #334155 !important; }
         
         /* Audio Player & Navigation */
         .audio-player { position: fixed; bottom: 85px; left: 10px; right: 10px; border-radius: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); display: none; z-index: 80; border: 2px solid #10b981; transform: translateZ(0); }
         body.dark-mode .audio-player { background: rgba(30,41,59,0.95); border-color: #059669; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-top-left-radius: 25px; border-top-right-radius: 25px; display: flex; justify-content: space-around; padding: 15px 0 25px 0; z-index: 90; box-shadow: 0 -10px 25px rgba(0,0,0,0.05); }
-        .nav-item { text-align: center; color: #94a3b8; font-size: 0.8rem; flex: 1; transition: 0.3s; font-weight: 600; }
+        .nav-item { text-align: center; color: #94a3b8; font-size: 0.8rem; flex: 1; transition: 0.3s; font-weight: 600; cursor: pointer; }
         .nav-item.active { color: #10b981; transform: translateY(-5px); text-shadow: 0 4px 10px rgba(16,185,129,0.3); }
         .nav-icon { font-size: 1.8rem; display: block; margin-bottom: 4px; }
         
@@ -74,7 +80,7 @@
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="pb-36">
+<body class="pb-28">
 
     <header class="glass-header text-white p-5 pb-8 rounded-b-[40px] sticky top-0 z-40">
         <div class="flex justify-between items-center mb-5">
@@ -103,7 +109,7 @@
         </div>
     </header>
 
-    <main class="max-w-2xl mx-auto p-4 relative z-30 -mt-6">
+    <main class="max-w-2xl mx-auto p-4 relative z-30 -mt-6 w-full">
 
         <div id="last-read-banner" onclick="openLastRead()" class="hidden card-3d bg-gradient-to-r from-amber-100 to-yellow-50 border-l-8 border-amber-500 p-4 mb-6 cursor-pointer flex justify-between items-center">
             <div>
@@ -146,6 +152,27 @@
         </section>
 
     </main>
+
+    <!-- FOOTER HADIS SECTION -->
+    <footer id="footer-section" class="max-w-2xl mx-auto w-full bg-emerald-50 rounded-t-[30px] p-8 mt-10 border-t border-emerald-200 mb-[90px] shadow-inner">
+        <div class="text-center">
+            <p class="arabic-footer" dir="rtl" lang="ar">«بَلِّغُوا عَنِّى وَلَوْ آيَةً، وَحَدِّثُوا عَنْ بَنِي إِسْرَائِيلَ وَلَا حَرَجَ، وَمَنْ كَذَبَ عَلَيَّ مُتَعَمِّدًا فَلْيَتَبَوَّأْ مَقْعَدَهُ مِنَ النَّارِ»</p>
+            <p class="text-sm text-gray-700 italic leading-relaxed mt-5 mb-6 font-medium">
+                “Sampaikanlah dariku walau satu ayat. Dan sampaikanlah cerita dari Bani Israil dan tidak apa-apa. Barang siapa yang berdusta atas namaku dengan sengaja, maka hendaklah ia menempati tempat duduknya di neraka.”
+            </p>
+        </div>
+        
+        <hr class="border-emerald-200/60 my-6">
+        
+        <div class="text-center space-y-2">
+            <p class="text-sm text-gray-600 font-semibold">
+                Dibuat oleh: <a href="https://indrayaza-z.vercel.app/" target="_blank" class="text-emerald-600 hover:text-emerald-800 underline font-black transition">Indrayaza.Z</a>
+            </p>
+            <p class="text-xs text-gray-500 font-medium">
+                &copy; 2026 al-quran-pro.vercel.app/. All rights reserved.
+            </p>
+        </div>
+    </footer>
 
     <div id="global-player" class="audio-player flex-col gap-3">
         <div class="flex items-center justify-between w-full">
@@ -194,7 +221,6 @@
             if(!document.getElementById('section-ruqyah').classList.contains('hidden')) {
                 loadRuqyah(); 
             }
-            alert(`✅ Suara berhasil diubah ke: ${name}\nSilakan putar ulang audio.`);
         }
 
         // --- 2. DARK MODE LOGIC ---
@@ -267,6 +293,7 @@
             document.getElementById('section-quran').classList.add('hidden');
             document.getElementById('section-ruqyah').classList.add('hidden');
             document.getElementById('section-read').classList.remove('hidden');
+            document.getElementById('footer-section').classList.add('hidden'); // Sembunyikan footer saat baca
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
             const content = document.getElementById('ayat-content');
@@ -399,15 +426,18 @@
             const q = document.getElementById('section-quran');
             const r = document.getElementById('section-ruqyah');
             const read = document.getElementById('section-read');
+            const footer = document.getElementById('footer-section');
             read.classList.add('hidden'); 
 
             if(tab === 'quran') {
                 q.classList.remove('hidden'); r.classList.add('hidden');
+                footer.classList.remove('hidden');
                 document.getElementById('nav-quran').classList.add('active');
                 document.getElementById('nav-ruqyah').classList.remove('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
                 q.classList.add('hidden'); r.classList.remove('hidden');
+                footer.classList.remove('hidden');
                 document.getElementById('nav-ruqyah').classList.add('active');
                 document.getElementById('nav-quran').classList.remove('active');
                 loadRuqyah();
