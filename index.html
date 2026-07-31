@@ -14,10 +14,10 @@
         ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
         
         main { flex: 1; }
-        
+
         /* Typography untuk Orang Tua (Jelas & Kontras) */
         .arabic { font-family: 'Amiri', serif; font-size: 2.8rem; line-height: 5.5rem; text-align: right; direction: rtl; color: #111827; text-shadow: 0px 1px 1px rgba(0,0,0,0.1); }
-        .arabic-footer { font-family: 'Amiri', serif; font-size: 1.8rem; line-height: 3.5rem; text-align: center; color: #064e3b; }
+        .arabic-footer { font-family: 'Amiri', serif; font-size: 1.8rem; line-height: 3.5rem; text-align: center; direction: rtl; color: #064e3b; margin-bottom: 0.5rem; }
         .latin-text { color: #059669; font-size: 1.15rem; line-height: 1.8rem; font-weight: 600; font-style: italic; letter-spacing: 0.5px; }
         .terjemahan-text { color: #4b5563; font-size: 1.05rem; line-height: 1.6rem; }
         
@@ -30,7 +30,7 @@
         .btn-3d:active { transform: translateY(3px); box-shadow: inset 4px 4px 10px rgba(4, 120, 87, 0.5); }
 
         /* ==========================================
-           DARK MODE 3D ADAPTATION (BUG FIXED)
+           DARK MODE 3D ADAPTATION
            ========================================== */
         body.dark-mode { background-color: #0f172a; color: #f8fafc; }
         body.dark-mode .card-3d { background: #1e293b; box-shadow: 6px 6px 15px rgba(0,0,0,0.4), -6px -6px 15px rgba(255,255,255,0.05); border-color: #334155; }
@@ -55,7 +55,7 @@
         body.dark-mode .bg-emerald-50, 
         body.dark-mode .bg-amber-50,
         body.dark-mode .bg-gray-50,
-        body.dark-mode footer.bg-emerald-50 { background-color: #0f172a !important; border-color: #334155 !important; }
+        body.dark-mode footer.bg-emerald-50 { background-color: #1e293b !important; border-color: #334155 !important; }
         
         body.dark-mode .text-amber-700,
         body.dark-mode .text-amber-600 { color: #fbbf24 !important; }
@@ -109,7 +109,7 @@
         </div>
     </header>
 
-    <main class="max-w-2xl mx-auto p-4 relative z-30 -mt-6 w-full">
+    <main class="max-w-2xl mx-auto w-full p-4 relative z-30 -mt-6">
 
         <div id="last-read-banner" onclick="openLastRead()" class="hidden card-3d bg-gradient-to-r from-amber-100 to-yellow-50 border-l-8 border-amber-500 p-4 mb-6 cursor-pointer flex justify-between items-center">
             <div>
@@ -153,22 +153,22 @@
 
     </main>
 
-    <!-- FOOTER HADIS SECTION -->
-    <footer id="footer-section" class="max-w-2xl mx-auto w-full bg-emerald-50 rounded-t-[30px] p-8 mt-10 border-t border-emerald-200 mb-[90px] shadow-inner">
+    <!-- FOOTER HADIS -->
+    <footer id="footer-section" class="max-w-2xl mx-auto w-full bg-emerald-50 rounded-t-2xl p-6 mt-6 border-t border-emerald-100 mb-[90px]">
         <div class="text-center">
-            <p class="arabic-footer" dir="rtl" lang="ar">«بَلِّغُوا عَنِّى وَلَوْ آيَةً، وَحَدِّثُوا عَنْ بَنِي إِسْرَائِيلَ وَلَا حَرَجَ، وَمَنْ كَذَبَ عَلَيَّ مُتَعَمِّدًا فَلْيَتَبَوَّأْ مَقْعَدَهُ مِنَ النَّارِ»</p>
-            <p class="text-sm text-gray-700 italic leading-relaxed mt-5 mb-6 font-medium">
-                “Sampaikanlah dariku walau satu ayat. Dan sampaikanlah cerita dari Bani Israil dan tidak apa-apa. Barang siapa yang berdusta atas namaku dengan sengaja, maka hendaklah ia menempati tempat duduknya di neraka.”
+            <p class="arabic-footer" dir="rtl" lang="ar">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</p>
+            <p class="text-sm text-gray-700 italic leading-relaxed mt-4 mb-6">
+                "Sesungguhnya amal itu tergantung niatnya, dan sesungguhnya setiap orang akan mendapatkan sesuai apa yang ia niatkan." <br> <span class="font-bold text-emerald-700">(HR. Bukhari)</span>
             </p>
         </div>
         
-        <hr class="border-emerald-200/60 my-6">
+        <hr class="border-emerald-200/50 my-4">
         
-        <div class="text-center space-y-2">
-            <p class="text-sm text-gray-600 font-semibold">
-                Dibuat oleh: <a href="https://indrayaza-z.vercel.app/" target="_blank" class="text-emerald-600 hover:text-emerald-800 underline font-black transition">Indrayaza.Z</a>
-            </p>
+        <div class="text-center space-y-1">
             <p class="text-xs text-gray-500 font-medium">
+                Dibuat oleh: <a href="https://indrayaza-z.vercel.app/" target="_blank" class="text-emerald-600 hover:text-emerald-800 underline font-bold transition">Indrayaza.Z</a>
+            </p>
+            <p class="text-[10px] text-gray-400">
                 &copy; 2026 al-quran-pro.vercel.app/. All rights reserved.
             </p>
         </div>
@@ -195,7 +195,6 @@
     </nav>
 
     <script>
-        // --- 1. CONFIG & STATE ---
         let allSurahData = []; 
         let currentFullAudioMap = {}; 
         
@@ -223,7 +222,6 @@
             }
         }
 
-        // --- 2. DARK MODE LOGIC ---
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
@@ -235,7 +233,6 @@
             document.getElementById('theme-icon').innerText = '☀️';
         }
 
-        // --- 3. LAST READ ---
         function checkLastRead() {
             const lastId = localStorage.getItem('lastReadId');
             const lastName = localStorage.getItem('lastReadName');
@@ -250,7 +247,6 @@
             if(id) getDetailSurah(id);
         }
 
-        // --- 4. LOAD SURAH LIST ---
         async function getSurahList() {
             document.getElementById('loading-surah').classList.remove('hidden');
             try {
@@ -288,12 +284,12 @@
             renderSurahList(filtered);
         }
 
-        // --- 5. DETAIL SURAH ---
         async function getDetailSurah(id) {
             document.getElementById('section-quran').classList.add('hidden');
             document.getElementById('section-ruqyah').classList.add('hidden');
             document.getElementById('section-read').classList.remove('hidden');
-            document.getElementById('footer-section').classList.add('hidden'); // Sembunyikan footer saat baca
+            document.getElementById('footer-section').classList.add('hidden'); 
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
             const content = document.getElementById('ayat-content');
@@ -352,7 +348,6 @@
             }
         }
 
-        // --- 6. RUQYAH ---
         function loadRuqyah() {
             const container = document.getElementById('ruqyah-container');
             const qariPaths = {
@@ -392,7 +387,6 @@
             });
         }
 
-        // --- 7. AUDIO PLAYER ---
         const player = document.getElementById('global-player');
         const audioEl = document.getElementById('audio-element');
 
@@ -421,23 +415,27 @@
 
         function closePlayer() { player.style.display = "none"; audioEl.pause(); }
 
-        // --- 8. NAVIGASI TABS ---
         function switchTab(tab) {
             const q = document.getElementById('section-quran');
             const r = document.getElementById('section-ruqyah');
             const read = document.getElementById('section-read');
             const footer = document.getElementById('footer-section');
+            
             read.classList.add('hidden'); 
 
             if(tab === 'quran') {
-                q.classList.remove('hidden'); r.classList.add('hidden');
+                q.classList.remove('hidden'); 
+                r.classList.add('hidden');
                 footer.classList.remove('hidden');
+                
                 document.getElementById('nav-quran').classList.add('active');
                 document.getElementById('nav-ruqyah').classList.remove('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                q.classList.add('hidden'); r.classList.remove('hidden');
+                q.classList.add('hidden'); 
+                r.classList.remove('hidden');
                 footer.classList.remove('hidden');
+                
                 document.getElementById('nav-ruqyah').classList.add('active');
                 document.getElementById('nav-quran').classList.remove('active');
                 loadRuqyah();
